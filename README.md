@@ -11,7 +11,7 @@ The easiest way is to keep the `wdio-fefanf-html-visreg-reporter` as a devDepend
 ```javascript
 {
   "devDependencies": {
-    "wdio-fefanf-html-visreg-reporter": "~0.0.1"
+    "wdio-fefanf-html-visreg-reporter": "~0.0.2"
   }
 }
 ```
@@ -41,9 +41,6 @@ module.exports = {
             
             //to show the report in a browser when done
             showInBrowser: true,
-
-            //to turn on screenshots after every test
-            useOnAfterCommandForScreenshot: false,
 
             // to use the template override option, can point to your own file in the test project:
             // templateFilename: path.resolve(__dirname, '../src/wdio-fefanf-html-visreg-reporter-alt-template.hbs'),
