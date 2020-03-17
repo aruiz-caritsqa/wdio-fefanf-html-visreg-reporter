@@ -82,21 +82,25 @@
         .expandable-control {
             cursor: pointer;
         }
-        .test-pass, .suite-pass {
+        .suite-pass {
             background-color: #C8E6C9;
         }
 
-        .test-fail, .suite-fail {
+        .suite-fail {
             background-color: #FFCDD2;
         }
 
-        .test-skipped, .suite-pending {
+        .suite-pending {
             background-color: #B5C8D1;;
         }
 
-        .test-unknown, .suite-unknown {
+        .suite-unknown {
             background-color: #5EA3D1;;
         }
+
+        .test-pass, .test-fail, .test-skipped, .test-unknown {
+            background-color: #D3C0F9;
+        }        
         .pre {
             display: block;
             padding: 9.5px;
@@ -253,9 +257,9 @@
             <td>
                 <table class="table table-bordered">
                     <tr>
-                        <td class='test-pass'>Passed</td>
-                        <td class='test-skipped'>Skipped</td>
-                        <td class='test-fail'>Failures</td>
+                        <td class='suite-pass'>Passed</td>
+                        <td class='suite-pending'>Skipped</td>
+                        <td class='suite-fail'>Failures</td>
                     </tr>
                     <tr>
                         <td>{{metrics.passed}}</td>
