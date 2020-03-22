@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,20 +18,28 @@
             font-weight: 200;
         }
 
-        h1, .h1, h2, .h2, h3, .h3 {
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3 {
             margin: 10px;
             font-weight: 200;
         }
 
-        h1, .h1 {
+        h1,
+        .h1 {
             font-size: 30px;
         }
 
-        h2, .h2 {
+        h2,
+        .h2 {
             font-size: 24px;
         }
 
-        h3, .h3 {
+        h3,
+        .h3 {
             font-size: 20px;
         }
 
@@ -38,15 +47,22 @@
             width: 100%;
         }
 
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        .table>thead>tr>th,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>tbody>tr>td,
+        .table>tfoot>tr>td {
             /*border-color: #ECEFF1;*/
         }
 
-        .table-bordered > tbody > tr, .table-bordered > tfoot > tr {
+        .table-bordered>tbody>tr,
+        .table-bordered>tfoot>tr {
             background-color: white;
         }
 
-        .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tfoot>tr>td {
             padding-left: 20px;
             padding-right: 20px;
             padding-bottom: 10px;
@@ -67,21 +83,27 @@
             text-align: right;
             display: inline;
         }
-        span.error      {
+
+        span.error {
             color: #AD2B2B;
         }
-        span.success    {
+
+        span.success {
             color: #53891E;
         }
-        span.pending    {
+
+        span.pending {
             color: grey;
         }
+
         .suite-header {
             cursor: pointer;
         }
+
         .expandable-control {
             cursor: pointer;
         }
+
         .suite-pass {
             background-color: #C8E6C9;
         }
@@ -91,16 +113,22 @@
         }
 
         .suite-pending {
-            background-color: #B5C8D1;;
+            background-color: #B5C8D1;
+            ;
         }
 
         .suite-unknown {
-            background-color: #5EA3D1;;
+            background-color: #5EA3D1;
+            ;
         }
 
-        .test-pass, .test-fail, .test-skipped, .test-unknown {
+        .test-pass,
+        .test-fail,
+        .test-skipped,
+        .test-unknown {
             background-color: #D3C0F9;
-        }        
+        }
+
         .pre {
             display: block;
             padding: 9.5px;
@@ -138,7 +166,7 @@
             word-wrap: break-word;
             background-color: #FFCDD2;
             border: 1px solid #ccc;
-        }        
+        }
 
         .visRegNew {
             display: block;
@@ -148,24 +176,25 @@
             line-height: 1.42857143;
             word-break: break-all;
             word-wrap: break-word;
-            background-color: #B5C8D1;;
+            background-color: #B5C8D1;
+            ;
             border: 1px solid #ccc;
-        }          
+        }
 
         .log-output {
             background-color: rgba(255, 192, 0, 0.36);
-            margin-left:24px;
+            margin-left: 24px;
         }
 
         .screenshotWrapper {
             max-width: 1024px;
-            margin-left:24px;
+            margin-left: 24px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
 
-        .screenshot {
-        }
+        .screenshot {}
+
         .screenshot-small {
             height: 15%;
         }
@@ -178,19 +207,19 @@
             border-top: 2px solid white;
         }
 
-        .test-iteration{
+        .test-iteration {
             background-color: #9bf8ff;
         }
 
         .assert {
             background-color: #a39eff;
-            margin-left:24px;
-            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+            margin-left: 24px;
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
         }
 
         .stack {
             background-color: rgba(156, 135, 255, 0.36);
-            margin-left:24px;
+            margin-left: 24px;
         }
 
         .filter {
@@ -201,13 +230,14 @@
             /*color:white;*/
         }
 
-        .filterOff{
+        .filterOff {
             border: 1px solid;
             padding: 8px;
             border-radius: 4px;
             background-color: rgba(138, 226, 219, 0.59);
             /*color:white;*/
         }
+
         /* Style the accordion panel. Note: hidden by default */
         .panel {
             padding: 0 18px;
@@ -218,148 +248,173 @@
 </head>
 
 <body>
-<div class="container">
+    <div class="container">
 
-    <div id="wdio-html-report" class="page-header"><h1>{{title}}</h1></div>
+        <div id="wdio-html-report" class="page-header">
+            <h1>{{title}}</h1>
+        </div>
 
-    <h2>Summary</h2>
-    <table class="table">
-        <thead>
-        <th>Key</th>
-        <th>Value</th>
-        </thead>
+        <h2>Summary</h2>
+        <table class="table">
+            <thead>
+                <th>Key</th>
+                <th>Value</th>
+            </thead>
 
-        <tbody>
-        <tr>
-            <td>Start</td>
-            <td>{{metrics.start}}</td>
-        </tr>
-        <tr>
-            <td>End</td>
-            <td>{{metrics.end}}</td>
-        </tr>
-        <tr>
-            <td>Duration</td>
-            <td>{{#humanizeDuration metrics.duration}}{{/humanizeDuration}}</td>
-        </tr>
-        <tr>
-            <td>Browser</td>
-            <td>{{info.capabilities.browserName}}</td>
-        </tr>
-        <tr>
-            <td>WebDriver</td>
-            <td>{{info.config.hostname}}:{{info.config.port}}</td>
-        </tr>
-
-
-        <tr>
-            <td>Breakdown</td>
-            <td>
-                <table class="table table-bordered">
-                    <tr>
-                        <td class='suite-pass'>Passed</td>
-                        <td class='suite-pending'>Skipped</td>
-                        <td class='suite-fail'>Failures</td>
-                    </tr>
-                    <tr>
-                        <td>{{metrics.passed}}</td>
-                        <td>{{metrics.skipped}}</td>
-                        <td>{{metrics.failed}}</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table class="table table-bordered">
-        <tr>
-            <td>
-                <span class="filter toggleFailingTests"><span>Hide</span> Failing Tests</span>
-                <span class="filter togglePassingTests"><span>Hide</span> Passing Tests</span>
-            </td>
-        </tr>
-    </table>
+            <tbody>
+                <tr>
+                    <td>Start</td>
+                    <td>{{metrics.start}}</td>
+                </tr>
+                <tr>
+                    <td>End</td>
+                    <td>{{metrics.end}}</td>
+                </tr>
+                <tr>
+                    <td>Duration</td>
+                    <td>{{#humanizeDuration metrics.duration}}{{/humanizeDuration}}</td>
+                </tr>
+                <tr>
+                    <td>Browser</td>
+                    <td>{{info.capabilities.browserName}}</td>
+                </tr>
+                <tr>
+                    <td>WebDriver</td>
+                    <td>{{info.config.hostname}}:{{info.config.port}}</td>
+                </tr>
 
 
-    <h2>Results</h2>
+                <tr>
+                    <td>Breakdown</td>
+                    <td>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td class='suite-pass'>Passed</td>
+                                <td class='suite-pending'>Skipped</td>
+                                <td class='suite-fail'>Failures</td>
+                            </tr>
+                            <tr>
+                                <td>{{metrics.passed}}</td>
+                                <td>{{metrics.skipped}}</td>
+                                <td>{{metrics.failed}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <table>
-    <tr>
-    <td>
         <table class="table table-bordered">
             <tr>
-                <td colspan="2">
+                <td>
+                    <span class="filter toggleFailingTests"><span>Hide</span> Failing Tests</span>
+                    <span class="filter togglePassingTests"><span>Hide</span> Passing Tests</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td><span>Github Token</span><input type="text" id="github-token"
+                                    value="905ffcfabc70dcc4203b5c55f95366594e77ae3b" /></td>
+                        </tr>
+                        <tr>
+                            <td><span>Github Repo</span><input type="text" id="github-repo"
+                                    value="aruiz-caritsqa/test-github-api" /></td>
+                        </tr>
+                        <tr>
+                            <td><span>Github Branch</span><input type="text" id="github-branch" value="master" /></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" id="updateImagesInGithub" value="Update selected images" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 
-                    <h3>{{info.cid}}</h3>
+        <h2>Results</h2>
+
+        <table>
+            <tr>
+                <td>
                     <table class="table table-bordered">
-                        {{#if specs }}
-                            {{#each specs as | spec|}}
-                            <tr>
-                                <td>Spec File</td>
-                                <td>{{spec}}</td>
-                            {{/each}}
-                        {{else}}
-                            {{#each info.specs as | spec|}}
-                                <tr>
-                                    <td>Spec File</td>
-                                    <td>{{spec}}</td>
-                            {{/each}}
-                        {{/if}}
-                        {{#each suites as |suite| }}
-                            {{#isValidSuite suite}}
-                                <table class="table table-bordered table-suite">
-                                    <tr class="suite-header">
-                                        <td colspan="2"
-                                            class="{{#suiteStateColour suite.tests}}{{/suiteStateColour}}">
-                                            <h3>
-                                                <span style="margin: 2px; padding: 1px">&nbsp;</span>{{suite.title}}
-                                            </h3>
-                                        </td>
-                                    </tr>
+                        <tr>
+                            <td colspan="2">
 
-                                    {{#ifSuiteHasTests suite.tests}}
-                                        <tr>
-                                            <td>Suite Start</td>
-                                            <td>{{suite.start}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suite End</td>
-                                            <td>{{suite.end}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suite Duration</td>
-                                            <td>{{#humanizeDuration suite._duration}}{{/humanizeDuration}}</td>
-                                        </tr>
+                                <h3>{{info.cid}}</h3>
+                                <table class="table table-bordered">
+                                    {{#if specs }}
+                                    {{#each specs as | spec|}}
+                                    <tr>
+                                        <td>Spec File</td>
+                                        <td>{{spec}}</td>
+                                        {{/each}}
+                                        {{else}}
+                                        {{#each info.specs as | spec|}}
+                                    <tr>
+                                        <td>Spec File</td>
+                                        <td>{{spec}}</td>
+                                        {{/each}}
+                                        {{/if}}
+                                        {{#each suites as |suite| }}
+                                        {{#isValidSuite suite}}
+                                        <table class="table table-bordered table-suite">
+                                            <tr class="suite-header">
+                                                <td colspan="2"
+                                                    class="{{#suiteStateColour suite.tests}}{{/suiteStateColour}}">
+                                                    <h3>
+                                                        <span
+                                                            style="margin: 2px; padding: 1px">&nbsp;</span>{{suite.title}}
+                                                    </h3>
+                                                </td>
+                                            </tr>
+
+                                            {{#ifSuiteHasTests suite.tests}}
+                                            <tr>
+                                                <td>Suite Start</td>
+                                                <td>{{suite.start}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Suite End</td>
+                                                <td>{{suite.end}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Suite Duration</td>
+                                                <td>{{#humanizeDuration suite._duration}}{{/humanizeDuration}}</td>
+                                            </tr>
 
 
-                                        <tr>
-                                            <td colspan="2"><h4>{{suite.tests.length}}&nbsp;Test(s):</h4></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <table>
-                                                    {{#each suite.tests as |test|}}
+                                            <tr>
+                                                <td colspan="2">
+                                                    <h4>{{suite.tests.length}}&nbsp;Test(s):</h4>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <table>
+                                                        {{#each suite.tests as |test|}}
                                                         <tr>
                                                             <td>
                                                                 <table class="table table-test">
                                                                     <tr>
-                                                                        <td colspan="2" class="{{#testStateColour test.state}}{{/testStateColour}}">
+                                                                        <td colspan="2"
+                                                                            class="{{#testStateColour test.state}}{{/testStateColour}}">
                                                                             {{#testStateIcon test.state}}{{/testStateIcon}}
                                                                             {{test.title}}</td>
                                                                     </tr>
                                                                     <!--tooooo verbose-->
-                                                                     <!--<tr>-->
-                                                                         <!--<td>Test Start</td>-->
-                                                                         <!--<td>{{test.start}}</td>-->
-                                                                     <!--</tr>-->
                                                                     <!--<tr>-->
-                                                                        <!--<td>Test End</td>-->
-                                                                        <!--<td>{{test.end}}</td>-->
+                                                                    <!--<td>Test Start</td>-->
+                                                                    <!--<td>{{test.start}}</td>-->
+                                                                    <!--</tr>-->
+                                                                    <!--<tr>-->
+                                                                    <!--<td>Test End</td>-->
+                                                                    <!--<td>{{test.end}}</td>-->
                                                                     <!--</tr>-->
 
                                                                     {{#each test.events as |event|}}
-                                                                        {{!-- {{#ifEventIsError event}}
+                                                                    {{!-- {{#ifEventIsError event}}
                                                                             <tr class="test-row ">
                                                                                 <td colspan="2" >
                                                                                     <p class="pre assert expandable-control">
@@ -398,187 +453,463 @@
                                                                             </tr>
                                                                         {{/ifEventIsLogMessage}} --}}
 
-                                                                        {{#ifEventIsVisRegPass event}}
-                                                                            <tr border="1" class="test-row log">
-                                                                                <td colspan="2" style="padding: 0px">
-                                                                                    <table class="visRegPass">
-                                                                                        <tr>
-                                                                                            <th>
-                                                                                                Baseline (Expected)
-                                                                                            </th>
-                                                                                            <th>
-                                                                                                Actual
-                                                                                            </th>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td valign="top">
-                                                                                                <img class="toggle screenshot screenshot-small"
-                                                                                                    src="{{#imageAsBase64
+                                                                    {{#ifEventIsVisRegPass event}}
+                                                                    <tr border="1" class="test-row log">
+                                                                        <td colspan="2" style="padding: 0px">
+                                                                            <table class="visRegPass">
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        Baseline (Expected)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Actual
+                                                                                    </th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        <img class="toggle screenshot screenshot-small"
+                                                                                            src="{{#imageAsBase64
                                                                                                             event.value.baseline
-                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}"/>
-                                                                                            </td>
-                                                                                            <td valign="top">
-                                                                                                <img class="toggle screenshot screenshot-small"
-                                                                                                    src="{{#imageAsBase64
+                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
+                                                                                    </td>
+                                                                                    <td valign="top">
+                                                                                        <img class="toggle screenshot screenshot-small"
+                                                                                            src="{{#imageAsBase64
                                                                                                             event.value.actual
-                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}"/>
+                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
 
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        {{/ifEventIsVisRegPass}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {{/ifEventIsVisRegPass}}
 
-                                                                        {{#ifEventIsVisRegFail event}}
-                                                                            <tr border="1" class="test-row log">
-                                                                                <td colspan="2" style="padding: 0px">
-                                                                                    <table class="visRegFail">
-                                                                                        <tr>
-                                                                                            <th>
-                                                                                                Baseline (Expected)
-                                                                                            </th>
-                                                                                            <th>
-                                                                                                Diff
-                                                                                            </th>
-                                                                                            <th>
-                                                                                                Actual
-                                                                                            </th>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td valign="top">
-                                                                                                <img class="toggle screenshot screenshot-small"
-                                                                                                    src="{{#imageAsBase64
+                                                                    {{#ifEventIsVisRegFail event}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            Set the "Actual" image as new baseline
+                                                                            <input type="checkbox"
+                                                                                name="update-baseline-image"
+                                                                                value="{{event.value.baseline}}" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr border="1" class="test-row log">
+                                                                        <td colspan="2" style="padding: 0px">
+                                                                            <table class="visRegFail">
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        Baseline (Expected)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Diff
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Actual
+                                                                                    </th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        <img class="toggle screenshot screenshot-small"
+                                                                                            src="{{#imageAsBase64
                                                                                                             event.value.baseline
-                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}"/>
-                                                                                            </td>
-                                                                                            <td valign="top">
-                                                                                                <img class="toggle screenshot screenshot-small"
-                                                                                                    src="{{#imageAsBase64
+                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
+                                                                                    </td>
+                                                                                    <td valign="top">
+                                                                                        <img class="toggle screenshot screenshot-small"
+                                                                                            src="{{#imageAsBase64
                                                                                                             event.value.diff
-                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}"/>
-                                                                                            </td>                                                                                            
-                                                                                            <td valign="top">
-                                                                                                <img class="toggle screenshot screenshot-small"
-                                                                                                    src="{{#imageAsBase64
+                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
+                                                                                    </td>
+                                                                                    <td valign="top">
+                                                                                        <img class="toggle screenshot screenshot-small"
+                                                                                            data-filename="{{event.value.baseline}}"
+                                                                                            src="{{#imageAsBase64
                                                                                                             event.value.actual
-                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}"/>
+                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
 
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        {{/ifEventIsVisRegFail}}    
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {{/ifEventIsVisRegFail}}
 
-                                                                        {{#ifEventIsVisRegSkip event}}
-                                                                            <tr border="1" class="test-row log">
-                                                                                <td colspan="2" style="padding: 0px">
-                                                                                    <table class="visRegNew">
-                                                                                        <tr>
-                                                                                            <th>
-                                                                                                Actual
-                                                                                            </th>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td valign="top">
-                                                                                                <img class="toggle screenshot screenshot-small"
-                                                                                                    src="{{#imageAsBase64
+                                                                    {{#ifEventIsVisRegSkip event}}
+                                                                    <tr border="1" class="test-row log">
+                                                                        <td colspan="2" style="padding: 0px">
+                                                                            <table class="visRegNew">
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        Actual
+                                                                                    </th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        <img class="toggle screenshot screenshot-small"
+                                                                                            src="{{#imageAsBase64
                                                                                                             event.value.actual
-                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}"/>
+                                                                                                            runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
 
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        {{/ifEventIsVisRegSkip}}                                                                                                                                                                                                                       
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {{/ifEventIsVisRegSkip}}
                                                                     {{/each}}
                                                                 </table>
                                                             </td>
                                                         <tr>
-                                                    {{/each}}
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    {{/ifSuiteHasTests}}
+                                                            {{/each}}
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            {{/ifSuiteHasTests}}
+                                        </table>
+                                        {{/isValidSuite}}
+                                        {{/each}}
                                 </table>
-                            {{/isValidSuite}}
-                        {{/each}}
+                            </td>
+                        </tr>
                     </table>
-                </td>
-            </tr>
         </table>
-    </table>
-</div>
+    </div>
 
-<script type="text/javascript">
-    // increase/decrease size of screenshot
-    $('.screenshot').click(function () {
-        var d = window.open().document;
-        d.write(''); d.close();
-        d.body.appendChild(document.createElement('img')).src = $(this).attr('src');
-        // $(this).toggleClass('screenshot-large screenshot-small');
-    });
+    <script type="text/javascript">
+        // increase/decrease size of screenshot
+        $('.screenshot').click(function () {
+            var d = window.open().document;
+            d.write(''); d.close();
+            d.body.appendChild(document.createElement('img')).src = $(this).attr('src');
+            // $(this).toggleClass('screenshot-large screenshot-small');
+        });
 
-    $.each($('.suite-header'), function () {
-        if (!$(this).children().hasClass("suite-unknown")) {
-            // $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
-            // $(this).find('span').toggleClass(function(_, value){return value=='glyphicon glyphicon-chevron-down'?'glyphicon glyphicon-chevron-up':'glyphicon glyphicon-chevron-down'});
-            $(this).find('span').addClass('glyphicon glyphicon-chevron-down');
-            $(this).nextUntil('.suite-header').slideToggle(100, function () {
+        $.each($('.suite-header'), function () {
+            if (!$(this).children().hasClass("suite-unknown")) {
+                // $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
+                // $(this).find('span').toggleClass(function(_, value){return value=='glyphicon glyphicon-chevron-down'?'glyphicon glyphicon-chevron-up':'glyphicon glyphicon-chevron-down'});
+                $(this).find('span').addClass('glyphicon glyphicon-chevron-down');
+                $(this).nextUntil('.suite-header').slideToggle(100, function () {
+                });
+            }
+        });
+
+        //hide the suites/scenarios
+        $('.suite-header').click(function () {
+            if (!$(this).children().hasClass("suite-unknown")) {
+                $(this).find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
+                $(this).find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
+                $(this).nextUntil('.suite-header').slideToggle(100, function () { });
+            }
+        });
+
+        $('.toggleFailingTests').click(function () {
+            $.each($('.suite-fail'), function () {
+                if ($(this).parent().find('span').hasClass('glyphicon-chevron-up')) {
+                    $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
+                    $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
+                    $(this).parent().nextUntil('.suite-header').slideUp();
+                }
+                $(this).slideToggle();
+            })
+            $(this).find('span').text(function (_, value) {
+                return value == 'Show' ? 'Hide' : 'Show'
             });
-        }
-    });
+            $(this).toggleClass('filter', 'filterOff', true);
+            $(this).toggleClass('filterOff', 'filter', true);
+        });
 
-    //hide the suites/scenarios
-    $('.suite-header').click(function () {
-        if (!$(this).children().hasClass("suite-unknown")) {
+        $('.togglePassingTests').click(function () {
+            $.each($('.suite-pass'), function () {
+                if ($(this).parent().find('span').hasClass('glyphicon-chevron-up')) {
+                    $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
+                    $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
+                    $(this).parent().nextUntil('.suite-header').slideUp();
+                }
+                $(this).slideToggle();
+            })
+            $(this).find('span').text(function (_, value) {
+                return value == 'Show' ? 'Hide' : 'Show'
+            });
+            $(this).toggleClass('filter', 'filterOff', true);
+            $(this).toggleClass('filterOff', 'filter', true);
+        });
+
+
+        $('.expandable-control').on('click', function () {
             $(this).find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
             $(this).find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
-            $(this).nextUntil('.suite-header').slideToggle(100, function () {});
+            let panel = $(this).parents('.test-row').next().find('.pre.stack.panel');
+            panel.slideToggle(100, function () { });
+        });
+
+        $('#updateImagesInGithub').on('click', async function () {
+            alert('hi');
+            const githubToken = $('#github-token').val();
+            const githubRepo = $('#github-repo').val();
+            const githubParentBranch = $('#github-branch').val();
+            
+            var date = new Date().toLocaleDateString().split(/[/]/).reverse().map(e => e.padStart(2, "0")).join('');
+            var time = new Date().toLocaleTimeString().replace(/:/g, '');            
+            const newBranchName = `visreg-${date}-${time}`;
+
+            alert(`token: ${githubToken}`);
+            const getUserRes = await getAuthenticatedUser(githubToken);
+            if (!getUserRes) {
+                return;
+            }
+            const { name, email } = getUserRes;
+            alert(`name: ${name} :: email: ${email}`);
+
+            const parentBranchSha = await getBranchSha(githubToken, githubRepo, githubParentBranch);
+            if (!parentBranchSha) {
+                return;
+            }
+            alert(`branch sha for ${githubParentBranch}: ${parentBranchSha}`);
+
+            const newBranchSha = await createNewBranchSha(githubToken, githubRepo, parentBranchSha, newBranchName);
+            if (!newBranchSha) {
+                return;
+            }
+            alert(`branch sha for new branch: ${newBranchSha}`);
+
+            const uploadedFileShas = await uploadAllSelectedImageBlobs(githubToken, githubRepo);
+
+            const newTreeSha = await getNewTreeSha(githubToken, githubRepo, newBranchSha, uploadedFileShas);
+            if (!newTreeSha) {
+                return;
+            }
+
+            const newCommitSha = await getNewCommitSha(githubToken, githubRepo, name, email, newBranchSha, newTreeSha);
+            if (!newCommitSha) {
+                return;
+            }
+
+            const newReference = await updateReference(githubToken, githubRepo, newBranchName, newCommitSha);
+            if (!newReference) {
+                return;
+            }
+
+            const prUrl = await createPullRequest(githubToken, githubRepo, githubParentBranch, newBranchName);
+            if (!prUrl) {
+                return;
+            }
+
+            alert(`<a href="${prUrl}">Pull Request created successfully</a>`);
+        });
+
+        async function createPullRequest(token, repo, parentBranchName, newBranchName) {
+            const data = {
+                title: "PR for Visual Regression",
+                body: "",
+                head: newBranchName,
+                base: parentBranchName
+            }
+
+            const res = await fetch(`https://api.github.com/repos/${repo}/pulls`, {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 201) {
+                alert(`Error creating pull request :: ${JSON.stringify(resBody)}`);
+                return null;
+            }
+            return resBody.url;
+        }        
+
+        async function updateReference(token, repo, branchName, commitSha) {
+            const data = {
+                sha: commitSha,
+                force: true
+            }
+
+            const res = await fetch(`https://api.github.com/repos/${repo}/git/refs/heads/${branchName}`, {
+                method: 'PATCH',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 200) {
+                alert(`Error updating reference :: ${JSON.stringify(resBody)}`);
+                return null;
+            }
+            return resBody.ref;
         }
-    });
 
-    $('.toggleFailingTests').click(function () {
-        $.each($('.suite-fail'), function () {
-            if ($(this).parent().find('span').hasClass('glyphicon-chevron-up')) {
-                $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
-                $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
-                $(this).parent().nextUntil('.suite-header').slideUp();
+        async function getNewCommitSha(token, repo, name, email, branchsha, treeSha) {
+            const data = {
+                message: "Update baseline images via wdio-fefanf-html-visreg-reporter",
+                author: {
+                    name,
+                    email,
+                    date: new Date()
+                },
+                parents: [branchsha],
+                tree: treeSha
             }
-            $(this).slideToggle();
-        })
-        $(this).find('span').text(function (_, value) {
-            return value == 'Show' ? 'Hide' : 'Show'
-        });
-        $(this).toggleClass('filter', 'filterOff', true);
-        $(this).toggleClass('filterOff', 'filter', true);
-    });
 
-    $('.togglePassingTests').click(function () {
-        $.each($('.suite-pass'), function () {
-            if ($(this).parent().find('span').hasClass('glyphicon-chevron-up')) {
-                $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
-                $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
-                $(this).parent().nextUntil('.suite-header').slideUp();
+            const res = await fetch(`https://api.github.com/repos/${repo}/git/commits`, {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 201) {
+                alert(`Error creating commit :: ${JSON.stringify(resBody)}`);
+                return null;
             }
-            $(this).slideToggle();
-        })
-        $(this).find('span').text(function (_, value) {
-            return value == 'Show' ? 'Hide' : 'Show'
-        });
-        $(this).toggleClass('filter', 'filterOff', true);
-        $(this).toggleClass('filterOff', 'filter', true);
-    });
+            return resBody.sha;
+        }
 
+        async function getNewTreeSha(token, repo, branchsha, uploadedFileShas) {
+            const data = {
+                base_tree: branchsha,
+                tree: []
+            }
 
-    $('.expandable-control').on('click', function () {
-        $(this).find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
-        $(this).find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
-        let panel = $(this).parents('.test-row').next().find('.pre.stack.panel');
-        panel.slideToggle(100, function () {});
-    });
-</script>
+            data.tree = uploadedFileShas.map(file => {
+                return {
+                    path: file.fileName.replace('./', ''),
+                    mode: "100644",
+                    type: "blob",
+                    sha: file.fileSha
+                }
+            });
+
+            alert(JSON.stringify(data, null, 2));
+
+            const res = await fetch(`https://api.github.com/repos/${repo}/git/trees`, {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 201) {
+                alert(`Error creating tree :: ${JSON.stringify(resBody)}`);
+                return null;
+            }
+            return resBody.sha;
+        }
+
+        async function uploadAllSelectedImageBlobs(token, repo) {
+            const res = await Promise.all($('[name="update-baseline-image"]:checked').map(async function (index) {
+                const filename = $(this).val();
+                const src = $(`[data-filename="${filename}"]`)[0].getAttribute('src').replace('data:image/png;base64,', '');
+
+                const data = {
+                    encoding: 'base64',
+                    content: src
+                };
+
+                const res = await fetch(`https://api.github.com/repos/${repo}/git/blobs`, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `token ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                const resBody = await res.json();
+                if (res.status !== 201) {
+                    alert(`Error uploading ${filename}: ${resBody}`);
+                    return null;
+                }
+
+                return {
+                    fileName: filename,
+                    fileSha: resBody.sha
+                }
+            }));
+
+            alert(JSON.stringify(res));
+
+            return res;
+        }
+
+        async function createNewBranchSha(token, repo, parentBranchSha, newBranchName) {
+            const data = {
+                ref: `refs/heads/${newBranchName}`,
+                sha: parentBranchSha
+            }
+
+            const res = await fetch(`https://api.github.com/repos/${repo}/git/refs`, {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 201) {
+                alert(`Error getting details for user in github with token '${token}' => statusCode: ${res.statusCode} :: ${JSON.stringify(resBody)}`);
+                return null;
+            }
+            return resBody.object.sha;
+        }
+
+        async function getBranchSha(token, repo, parentBranch) {
+            const res = await fetch(`https://api.github.com/repos/${repo}/git/matching-refs/heads/${parentBranch}`, {
+                method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                }
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 200) {
+                alert(`Error getting details for user in github with token '${token}' => statusCode: ${res.statusCode} :: ${JSON.stringify(resBody)}`);
+                return null;
+            }
+            return resBody[0].object.sha;
+        }
+
+        async function getAuthenticatedUser(token) {
+            const res = await fetch('https://api.github.com/user', {
+                method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                }
+            });
+            const resBody = await res.json();
+
+            if (res.status !== 200) {
+                alert(`Error getting details for user in github with token '${token}' => statusCode: ${res.statusCode} :: ${JSON.stringify(resBody)}`);
+                return null;
+            }
+            return resBody;
+        }        
+    </script>
 </body>
+
 </html>
