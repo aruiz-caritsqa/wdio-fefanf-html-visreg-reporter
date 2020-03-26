@@ -244,6 +244,37 @@
             display: none;
             overflow: hidden;
         }
+
+        #spinner:not([hidden]) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        #spinner::after {
+        content: "";
+        width: 80px;
+        height: 80px;
+        border: 2px solid #f3f3f3;
+        border-top: 3px solid #f25a41;
+        border-radius: 100%;
+        will-change: transform;
+        animation: spin 1s infinite linear
+        }
+
+        @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+        }
     </style>
 </head>
 
@@ -315,12 +346,10 @@
                 <td>
                     <table>
                         <tr>
-                            <td><span>Github Token</span><input type="text" id="github-token"
-                                    value="905ffcfabc70dcc4203b5c55f95366594e77ae3b" /></td>
+                            <td><span>Github Token</span><input type="text" id="github-token" value="" /></td>
                         </tr>
                         <tr>
-                            <td><span>Github Repo</span><input type="text" id="github-repo"
-                                    value="aruiz-caritsqa/test-github-api" /></td>
+                            <td><span>Github Repo</span><input type="text" id="github-repo"value="aruiz-caritsqa/test-github-api" /></td>
                         </tr>
                         <tr>
                             <td><span>Github Branch</span><input type="text" id="github-branch" value="master" /></td>
@@ -333,8 +362,9 @@
             </tr>
         </table>
 
-        <h2>Results</h2>
+        <div hidden id="spinner"></div>
 
+        <h2>Results</h2>
         <table>
             <tr>
                 <td>
@@ -458,6 +488,9 @@
                                                                         <td colspan="2" style="padding: 0px">
                                                                             <table class="visRegPass">
                                                                                 <tr>
+                                                                                    <td colspan="2"><span>{{event.value.baseline}}</span></td>
+                                                                                </tr>
+                                                                                <tr>
                                                                                     <th>
                                                                                         Baseline (Expected)
                                                                                     </th>
@@ -486,17 +519,20 @@
                                                                     {{/ifEventIsVisRegPass}}
 
                                                                     {{#ifEventIsVisRegFail event}}
-                                                                    <tr>
-                                                                        <td>
-                                                                            Set the "Actual" image as new baseline
-                                                                            <input type="checkbox"
-                                                                                name="update-baseline-image"
-                                                                                value="{{event.value.baseline}}" />
-                                                                        </td>
-                                                                    </tr>
                                                                     <tr border="1" class="test-row log">
                                                                         <td colspan="2" style="padding: 0px">
                                                                             <table class="visRegFail">
+                                                                                <tr>
+                                                                                    <td colspan="3"><span>{{event.value.baseline}}</span></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <span>Set the "Actual" image as new baseline</span>
+                                                                                        <input type="checkbox"
+                                                                                            name="update-baseline-image"
+                                                                                            value="{{event.value.baseline}}" />
+                                                                                    </td>
+                                                                                </tr>
                                                                                 <tr>
                                                                                     <th>
                                                                                         Baseline (Expected)
@@ -540,6 +576,17 @@
                                                                         <td colspan="2" style="padding: 0px">
                                                                             <table class="visRegNew">
                                                                                 <tr>
+                                                                                    <td><span>{{event.value.baseline}}</span></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <span>Set the "Actual" image as new baseline</span>
+                                                                                        <input type="checkbox"
+                                                                                            name="update-baseline-image"
+                                                                                            value="{{event.value.baseline}}" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
                                                                                     <th>
                                                                                         Actual
                                                                                     </th>
@@ -547,6 +594,7 @@
                                                                                 <tr>
                                                                                     <td valign="top">
                                                                                         <img class="toggle screenshot screenshot-small"
+                                                                                            data-filename="{{event.value.baseline}}"
                                                                                             src="{{#imageAsBase64
                                                                                                             event.value.actual
                                                                                                             runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
@@ -644,8 +692,11 @@
             panel.slideToggle(100, function () { });
         });
 
+
         $('#updateImagesInGithub').on('click', async function () {
-            alert('hi');
+            const spinner = $("#spinner")[0]
+            spinner.removeAttribute('hidden');
+
             const githubToken = $('#github-token').val();
             const githubRepo = $('#github-repo').val();
             const githubParentBranch = $('#github-branch').val();
@@ -654,25 +705,21 @@
             var time = new Date().toLocaleTimeString().replace(/:/g, '');            
             const newBranchName = `visreg-${date}-${time}`;
 
-            alert(`token: ${githubToken}`);
             const getUserRes = await getAuthenticatedUser(githubToken);
             if (!getUserRes) {
                 return;
             }
             const { name, email } = getUserRes;
-            alert(`name: ${name} :: email: ${email}`);
 
             const parentBranchSha = await getBranchSha(githubToken, githubRepo, githubParentBranch);
             if (!parentBranchSha) {
                 return;
             }
-            alert(`branch sha for ${githubParentBranch}: ${parentBranchSha}`);
 
             const newBranchSha = await createNewBranchSha(githubToken, githubRepo, parentBranchSha, newBranchName);
             if (!newBranchSha) {
                 return;
             }
-            alert(`branch sha for new branch: ${newBranchSha}`);
 
             const uploadedFileShas = await uploadAllSelectedImageBlobs(githubToken, githubRepo);
 
@@ -695,7 +742,7 @@
             if (!prUrl) {
                 return;
             }
-
+            spinner.setAttribute('hidden', '');
             alert(`<a href="${prUrl}">Pull Request created successfully</a>`);
         });
 
@@ -794,8 +841,6 @@
                 }
             });
 
-            alert(JSON.stringify(data, null, 2));
-
             const res = await fetch(`https://api.github.com/repos/${repo}/git/trees`, {
                 method: 'POST',
                 cache: 'no-cache',
@@ -844,8 +889,6 @@
                     fileSha: resBody.sha
                 }
             }));
-
-            alert(JSON.stringify(res));
 
             return res;
         }

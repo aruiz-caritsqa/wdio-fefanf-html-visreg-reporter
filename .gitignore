@@ -1,9 +1,9 @@
-.DS_Store
-.yarnclean
+node_modules
 build
 build-test
+reports
+.DS_Store
+.yarnclean
 dist
 .idea
-reports
-node_modules
 *.log

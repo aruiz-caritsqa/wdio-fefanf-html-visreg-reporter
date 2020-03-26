@@ -90,7 +90,7 @@ class VisRegHtmlReporter extends WDIOReporter {
             console.log(`\n>>> visreg:compareNew :: ${JSON.stringify(images)}\n`);
             let test = this.getTest(this.testUid) ;
             this.moveErrorsToEvents(test) ;
-            test.events.push({type: 'imgCompareNew', value: { actual: images.actual}}) ;
+            test.events.push({type: 'imgCompareNew', value: { actual: images.actual, baseline: images.baseline }}) ;
         });
 
 
