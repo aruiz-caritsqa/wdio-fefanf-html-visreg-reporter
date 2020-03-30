@@ -84,10 +84,14 @@ class VisRegHtmlReporter extends WDIOReporter {
     getBranchName() {
         let res;
         
+        if (this.options.gitBranch) {
+            return this.options.gitBranch;
+        }
+
         try {
-          res = execSync('git remote -v').toString('utf8').match(/github\.com.(.*?)\.git/);
+            res = execSync('git remote -v').toString('utf8').match(/github\.com.(.*?)\.git/);
         } catch(e) {
-          return ""
+            return "";
         }
     
         if (res) {
