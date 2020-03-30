@@ -376,6 +376,10 @@
                 <td>
                     <span class="filter toggleFailingTests"><span>Hide</span> Failing Tests</span>
                     <span class="filter togglePassingTests"><span>Hide</span> Passing Tests</span>
+                    <span>&nbsp;&nbsp;</span>
+                    <span class="filter togglePassingImageCompare"><span>Hide</span> Passing Image Comparisons</span>
+                    <span class="filter toggleNewImageCompare"><span>Hide</span> New Image Comparisons</span>
+                    <span class="filter toggleFailingImageCompare"><span>Hide</span> Failing Image Comparisons</span>                    
                 </td>
             </tr>
         </table>        
@@ -703,6 +707,39 @@
             $(this).toggleClass('filterOff', 'filter', true);
         });
 
+        $('.togglePassingImageCompare').click(function () {
+            $.each($('.visreg-pass'), function () {
+                $(this).slideToggle();
+            })
+            $(this).find('span').text(function (_, value) {
+                return value == 'Show' ? 'Hide' : 'Show'
+            });
+            $(this).toggleClass('filter', 'filterOff', true);
+            $(this).toggleClass('filterOff', 'filter', true);
+        });
+        
+
+        $('.toggleFailingImageCompare').click(function () {
+            $.each($('.visreg-fail'), function () {
+                $(this).slideToggle();
+            })
+            $(this).find('span').text(function (_, value) {
+                return value == 'Show' ? 'Hide' : 'Show'
+            });
+            $(this).toggleClass('filter', 'filterOff', true);
+            $(this).toggleClass('filterOff', 'filter', true);
+        });
+
+        $('.toggleNewImageCompare').click(function () {
+            $.each($('.visreg-new'), function () {
+                $(this).slideToggle();
+            })
+            $(this).find('span').text(function (_, value) {
+                return value == 'Show' ? 'Hide' : 'Show'
+            });
+            $(this).toggleClass('filter', 'filterOff', true);
+            $(this).toggleClass('filterOff', 'filter', true);
+        });
 
         $('.expandable-control').on('click', function () {
             $(this).find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
