@@ -22,6 +22,10 @@ Or, you can simply do it with:
 npm install wdio-fefanf-html-visreg-reporter --save-dev
 ```
 
+## Automatic PR with new baseline images
+By selecting the images you want to become the new basline, and clicking "Update Selected Images", a Pull-Request will automatically be created in github on the repo you specify. You will need a github token.
+	
+To create a token, you need a Github account, then go [here](https://github.com/settings/tokens) and follow [these instructions](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). Store the token in a safe place to re-use it.
 
 ## Configuration
 The following code shows the default wdio test runner configuration. Just add an VisRegHtmlReporter object as another reporter to the reporters array.  Syntax shown requires babel:
@@ -38,8 +42,9 @@ module.exports = {
             outputDir: './reports/visreg-reports/',
             filename: 'report.html',
             reportTitle: 'Visual Regression Test Report Title',
-            
-            //to show the report in a browser when done
+            // to override the git repo & branch
+            gitBranch: '<owner>/<repo>', 
+            // to show the report in a browser when done
             showInBrowser: true,
 
             // to use the template override option, can point to your own file in the test project:
