@@ -1,6 +1,6 @@
 {
   "name": "wdio-fefanf-html-visreg-reporter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A WebdriverIO plugin. Create a basic HTML formatted report",
   "main": "build/index.js",
   "types": "wdio-fefanf-html-visreg-reporter.d.ts",
@@ -44,8 +44,7 @@
     "moment": "^2.20.1",
     "moment-duration-format": "^2.2.1",
     "open": "^6.0.0",
-    "path": "^0.12.7",
-    "simple-git": "^1.132.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
