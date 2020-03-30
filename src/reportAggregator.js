@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const moment = require('moment');
 const logger = require('@log4js-node/log4js-api');
+const { execSync } = require('child_process');
 
 function  walk(dir, extensions , filelist = []) {
     const files = fs.readdirSync(dir);
@@ -50,18 +51,24 @@ class VisRegReportAggregator {
         fs.emptyDirSync(this.options.outputDir);
     }
 
-
-
     readJsonFiles() {
         return walk(this.options.outputDir, [".json"]);
     }
-
 
     log(message,object) {
         if (this.options.LOG) {
             this.options.LOG.debug(message + object) ;
         }
     }
+
+    getBranchName () {
+        const res = execSync('git remote -v').toString('utf8').match(/github\.com.(.*?)\.git/);
+        if (res) {
+            return res[1];
+        }
+        return "nothing";
+    }
+
     async createReport(results) {
 
         let metrics = {
@@ -85,7 +92,6 @@ class VisRegReportAggregator {
                     specs.push(spec) ;
                 });
 
-
                 this.reports.push(report);
                 metrics.passed += report.metrics.passed;
                 metrics.failed += report.metrics.failed;
@@ -98,7 +104,7 @@ class VisRegReportAggregator {
                         metrics.start =  start ;
                     }
                     let end = moment.utc(suite.end) ;
-                    if ( end.isAfter(metrics.end)) {
+                    if (end.isAfter(metrics.end)) {
                         metrics.end =  end ;
                     }
                     suites.push(suite);
@@ -119,6 +125,7 @@ class VisRegReportAggregator {
                 metrics: metrics,
                 suites: suites,
                 title: this.options.reportTitle,
+                gitRemote: this.getBranchName(),
             },
             outputDir: this.options.outputDir,
             reportFile: this.options.reportFile,

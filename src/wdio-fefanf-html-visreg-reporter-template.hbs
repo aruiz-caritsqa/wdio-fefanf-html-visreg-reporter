@@ -114,12 +114,10 @@
 
         .suite-pending {
             background-color: #B5C8D1;
-            ;
         }
 
         .suite-unknown {
             background-color: #5EA3D1;
-            ;
         }
 
         .test-pass,
@@ -144,41 +142,37 @@
             border-radius: 4px;
         }
 
-        .visRegPass {
+        .visreg-table {
             display: block;
-            padding: 9.5px;
             margin: 0 0 0 20px;
             font-size: 13px;
             line-height: 1.42857143;
             word-break: break-all;
             word-wrap: break-word;
             background-color: #C8E6C9;
-            border: 1px solid #ccc;
+            width: 100%;
         }
 
-        .visRegFail {
-            display: block;
-            padding: 9.5px;
-            margin: 0 0 0 20px;
-            font-size: 13px;
-            line-height: 1.42857143;
-            word-break: break-all;
-            word-wrap: break-word;
+        .visreg-table tr {
+            width: 100%;
+        }
+
+        .visreg-table, 
+        .visreg-table>tbody>tr, 
+        .visreg-table>tbody>tr>td {
+            border-top: none;
+        }
+
+        .visreg-pass>tbody>tr, .visreg-pass>tbody>tr>td  {
+            background-color: #C8E6C9;
+        }
+
+        .visreg-fail>tbody>tr, .visreg-fail>tbody>tr>td{
             background-color: #FFCDD2;
-            border: 1px solid #ccc;
         }
 
-        .visRegNew {
-            display: block;
-            padding: 9.5px;
-            margin: 0 0 0 20px;
-            font-size: 13px;
-            line-height: 1.42857143;
-            word-break: break-all;
-            word-wrap: break-word;
+        .visreg-new>tbody>tr, .visreg-new>tbody>tr>td{
             background-color: #B5C8D1;
-            ;
-            border: 1px solid #ccc;
         }
 
         .log-output {
@@ -196,15 +190,16 @@
         .screenshot {}
 
         .screenshot-small {
-            height: 15%;
+            width: 95%;
         }
 
         .table-test {
             margin: 0px;
         }
 
-        tr.test-row {
-            border-top: 2px solid white;
+        .test-row, .test-row>td {
+            border-collapse: collapse;
+            border-top: none;
         }
 
         .test-iteration {
@@ -225,16 +220,14 @@
         .filter {
             border: 1px solid;
             padding: 8px;
-            border-radius: 4px;
-            background-color: #8ae2db;
+            background-color: #ddd;
             /*color:white;*/
         }
 
         .filterOff {
             border: 1px solid;
             padding: 8px;
-            border-radius: 4px;
-            background-color: rgba(138, 226, 219, 0.59);
+            background-color: #aaa;
             /*color:white;*/
         }
 
@@ -245,36 +238,34 @@
             overflow: hidden;
         }
 
-        #spinner:not([hidden]) {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        .image-title-cell {
+            vertical-align: top;
+            width: 33%;
+            text-align: center;
+            border-bottom: none;
         }
 
-        #spinner::after {
-        content: "";
-        width: 80px;
-        height: 80px;
-        border: 2px solid #f3f3f3;
-        border-top: 3px solid #f25a41;
-        border-radius: 100%;
-        will-change: transform;
-        animation: spin 1s infinite linear
+        .image-cell {
+            vertical-align: top;
+            width: 33%;
+            border-top: none;
+        }
+
+        .loader {
+            position: relative;
+            border: 10px solid #f3f3f3; /* Light grey */
+            border-top: 10px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
         }
 
         @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-        }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }        
+
     </style>
 </head>
 
@@ -285,13 +276,28 @@
             <h1>{{title}}</h1>
         </div>
 
+        <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Baseline Images Upload Progress</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="loader img-responsive center-block"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <h2>Summary</h2>
         <table class="table">
-            <thead>
-                <th>Key</th>
-                <th>Value</th>
-            </thead>
-
             <tbody>
                 <tr>
                     <td>Start</td>
@@ -305,6 +311,10 @@
                     <td>Duration</td>
                     <td>{{#humanizeDuration metrics.duration}}{{/humanizeDuration}}</td>
                 </tr>
+                <tr>
+                    <td>Base URL</td>
+                    <td>{{info.config.baseUrl}}</td>
+                </tr>        
                 <tr>
                     <td>Browser</td>
                     <td>{{info.capabilities.browserName}}</td>
@@ -335,45 +345,41 @@
             </tbody>
         </table>
 
+        <h2>Results</h2>
+
         <table class="table table-bordered">
+            <tr>
+                <td>
+                    <table class="">
+                        <tr>
+                            <td width="100px"><span>Github Token</span></td><td><input type="text" size="80" id="github-token" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td width="100px"><span>Github Repo</span></td><td><input type="text" size="80" id="github-repo" value="{{gitRemote}}" /></td>
+                        </tr>
+                        <tr>
+                            <td width="100px"><span>Github Branch</span></td><td><input type="text" size="80" id="github-branch" value="master" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="button" id="updateImagesInGithub" value="Update selected images" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <span class="filter toggleFailingTests"><span>Hide</span> Failing Tests</span>
                     <span class="filter togglePassingTests"><span>Hide</span> Passing Tests</span>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <td><span>Github Token</span><input type="text" id="github-token" value="" /></td>
-                        </tr>
-                        <tr>
-                            <td><span>Github Repo</span><input type="text" id="github-repo"value="aruiz-caritsqa/test-github-api" /></td>
-                        </tr>
-                        <tr>
-                            <td><span>Github Branch</span><input type="text" id="github-branch" value="master" /></td>
-                        </tr>
-                        <tr>
-                            <td><input type="button" id="updateImagesInGithub" value="Update selected images" /></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-        <div hidden id="spinner"></div>
-
-        <h2>Results</h2>
+        </table>        
         <table>
             <tr>
                 <td>
                     <table class="table table-bordered">
                         <tr>
                             <td colspan="2">
-
-                                <h3>{{info.cid}}</h3>
-                                <table class="table table-bordered">
+                                <table class="table">
                                     {{#if specs }}
                                     {{#each specs as | spec|}}
                                     <tr>
@@ -389,7 +395,7 @@
                                         {{/if}}
                                         {{#each suites as |suite| }}
                                         {{#isValidSuite suite}}
-                                        <table class="table table-bordered table-suite">
+                                        <table class="table table-suite {{#suiteStateColour suite.tests}}{{/suiteStateColour}}-table">
                                             <tr class="suite-header">
                                                 <td colspan="2"
                                                     class="{{#suiteStateColour suite.tests}}{{/suiteStateColour}}">
@@ -422,7 +428,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <table>
+                                                    <table class="">
                                                         {{#each suite.tests as |test|}}
                                                         <tr>
                                                             <td>
@@ -486,32 +492,34 @@
                                                                     {{#ifEventIsVisRegPass event}}
                                                                     <tr border="1" class="test-row log">
                                                                         <td colspan="2" style="padding: 0px">
-                                                                            <table class="visRegPass">
+                                                                            <table class="table visreg-table visreg-pass">
                                                                                 <tr>
-                                                                                    <td colspan="2"><span>{{event.value.baseline}}</span></td>
+                                                                                    <td colspan="3"><span style="font-weight: bold">Image Path: </span><span style="font-style: italic">{{event.value.baseline}}</span></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>
+                                                                                    <th class="image-title-cell">
                                                                                         Baseline (Expected)
                                                                                     </th>
-                                                                                    <th>
+                                                                                    <th class="image-title-cell">
                                                                                         Actual
                                                                                     </th>
+                                                                                    <th class="image-title-cell"></th>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td valign="top">
+                                                                                    <td class="image-cell">
                                                                                         <img class="toggle screenshot screenshot-small"
                                                                                             src="{{#imageAsBase64
                                                                                                             event.value.baseline
                                                                                                             runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
                                                                                     </td>
-                                                                                    <td valign="top">
+                                                                                    <td class="image-cell">
                                                                                         <img class="toggle screenshot screenshot-small"
                                                                                             src="{{#imageAsBase64
                                                                                                             event.value.actual
                                                                                                             runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
 
                                                                                     </td>
+                                                                                    <td class="image-cell"></td>
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
@@ -521,43 +529,44 @@
                                                                     {{#ifEventIsVisRegFail event}}
                                                                     <tr border="1" class="test-row log">
                                                                         <td colspan="2" style="padding: 0px">
-                                                                            <table class="visRegFail">
+                                                                            <table class="table visreg-table visreg-fail">
                                                                                 <tr>
-                                                                                    <td colspan="3"><span>{{event.value.baseline}}</span></td>
+                                                                                    <td colspan="3"><span style="font-weight: bold">Image Path: </span><span style="font-style: italic">{{event.value.baseline}}</span></td>
                                                                                 </tr>
+                                                                                
                                                                                 <tr>
-                                                                                    <td>
-                                                                                        <span>Set the "Actual" image as new baseline</span>
+                                                                                    <td colspan="3">
+                                                                                        <span style="font-weight: bold;">Set the "Actual" image as new baseline</span>
                                                                                         <input type="checkbox"
                                                                                             name="update-baseline-image"
                                                                                             value="{{event.value.baseline}}" />
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>
+                                                                                    <th class="image-title-cell">
                                                                                         Baseline (Expected)
                                                                                     </th>
-                                                                                    <th>
+                                                                                    <th class="image-title-cell">
                                                                                         Diff
                                                                                     </th>
-                                                                                    <th>
+                                                                                    <th class="image-title-cell">
                                                                                         Actual
                                                                                     </th>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td valign="top">
+                                                                                    <td class="image-cell">
                                                                                         <img class="toggle screenshot screenshot-small"
                                                                                             src="{{#imageAsBase64
                                                                                                             event.value.baseline
                                                                                                             runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
                                                                                     </td>
-                                                                                    <td valign="top">
+                                                                                    <td class="image-cell">
                                                                                         <img class="toggle screenshot screenshot-small"
                                                                                             src="{{#imageAsBase64
                                                                                                             event.value.diff
                                                                                                             runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
                                                                                     </td>
-                                                                                    <td valign="top">
+                                                                                    <td class="image-cell">
                                                                                         <img class="toggle screenshot screenshot-small"
                                                                                             data-filename="{{event.value.baseline}}"
                                                                                             src="{{#imageAsBase64
@@ -574,25 +583,27 @@
                                                                     {{#ifEventIsVisRegSkip event}}
                                                                     <tr border="1" class="test-row log">
                                                                         <td colspan="2" style="padding: 0px">
-                                                                            <table class="visRegNew">
+                                                                            <table class="table visreg-table visreg-new">
                                                                                 <tr>
-                                                                                    <td><span>{{event.value.baseline}}</span></td>
+                                                                                    <td colspan="3"><span style="font-weight: bold">Image Path: </span><span style="font-style: italic">{{event.value.baseline}}</span></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>
-                                                                                        <span>Set the "Actual" image as new baseline</span>
+                                                                                    <td colspan="3">
+                                                                                        <span style="font-weight: bold;">Set the "Actual" image as new baseline</span>
                                                                                         <input type="checkbox"
                                                                                             name="update-baseline-image"
                                                                                             value="{{event.value.baseline}}" />
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>
+                                                                                    <th class="image-title-cell">
                                                                                         Actual
                                                                                     </th>
+                                                                                    <td class="image-title-cell"></td>
+                                                                                    <td class="image-title-cell"></td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td valign="top">
+                                                                                    <td class="image-cell">
                                                                                         <img class="toggle screenshot screenshot-small"
                                                                                             data-filename="{{event.value.baseline}}"
                                                                                             src="{{#imageAsBase64
@@ -600,6 +611,8 @@
                                                                                                             runnerStat.config.screenshotPath}}{{/imageAsBase64}}" />
 
                                                                                     </td>
+                                                                                    <td class="image-cell"></td>
+                                                                                    <td class="image-cell"></td>
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
@@ -653,7 +666,7 @@
         });
 
         $('.toggleFailingTests').click(function () {
-            $.each($('.suite-fail'), function () {
+            $.each($('.suite-fail-table'), function () {
                 if ($(this).parent().find('span').hasClass('glyphicon-chevron-up')) {
                     $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
                     $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
@@ -669,7 +682,7 @@
         });
 
         $('.togglePassingTests').click(function () {
-            $.each($('.suite-pass'), function () {
+            $.each($('.suite-pass-table'), function () {
                 if ($(this).parent().find('span').hasClass('glyphicon-chevron-up')) {
                     $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-down', 'glyphicon glyphicon-chevron-up', true);
                     $(this).parent().find('span').toggleClass('glyphicon glyphicon-chevron-up', 'glyphicon glyphicon-chevron-down', true);
@@ -694,8 +707,7 @@
 
 
         $('#updateImagesInGithub').on('click', async function () {
-            const spinner = $("#spinner")[0]
-            spinner.removeAttribute('hidden');
+            $("#progressModal").modal('show');
 
             const githubToken = $('#github-token').val();
             const githubRepo = $('#github-repo').val();
@@ -704,6 +716,8 @@
             var date = new Date().toLocaleDateString().split(/[/]/).reverse().map(e => e.padStart(2, "0")).join('');
             var time = new Date().toLocaleTimeString().replace(/:/g, '');            
             const newBranchName = `visreg-${date}-${time}`;
+
+            $('#progressModal .modal-body').append("Uploading images & creating Pull Request...<br/>");
 
             const getUserRes = await getAuthenticatedUser(githubToken);
             if (!getUserRes) {
@@ -742,8 +756,10 @@
             if (!prUrl) {
                 return;
             }
-            spinner.setAttribute('hidden', '');
-            alert(`<a href="${prUrl}">Pull Request created successfully</a>`);
+
+            $('#progressModal .modal-body').append("Upload complete<br/>");
+            $('.loader')[0].setAttribute('style', 'display: none');
+            $('#progressModal .modal-body').append(`<a href="${prUrl}">Pull Request created successfully</a>`);
         });
 
         async function createPullRequest(token, repo, parentBranchName, newBranchName) {
@@ -769,7 +785,7 @@
                 alert(`Error creating pull request :: ${JSON.stringify(resBody)}`);
                 return null;
             }
-            return resBody.url;
+            return resBody.html_url;
         }        
 
         async function updateReference(token, repo, branchName, commitSha) {
@@ -860,9 +876,11 @@
         }
 
         async function uploadAllSelectedImageBlobs(token, repo) {
-            const res = await Promise.all($('[name="update-baseline-image"]:checked').map(async function (index) {
-                const filename = $(this).val();
-                const src = $(`[data-filename="${filename}"]`)[0].getAttribute('src').replace('data:image/png;base64,', '');
+            const selectedImages = $('[name="update-baseline-image"]:checked');
+            let uploadCompletions = 0;
+            const res = await Promise.all(selectedImages.map(async function (index) {
+                const fileName = $(this).val();
+                const src = $(`[data-filename="${fileName}"]`)[0].getAttribute('src').replace('data:image/png;base64,', '');
 
                 const data = {
                     encoding: 'base64',
@@ -880,12 +898,15 @@
                 });
                 const resBody = await res.json();
                 if (res.status !== 201) {
-                    alert(`Error uploading ${filename}: ${resBody}`);
+                    alert(`Error uploading ${fileName}: ${resBody}`);
                     return null;
                 }
 
+                uploadCompletions += 1;
+                $('#progressModal .modal-body').append(`<p>Upload ${uploadCompletions}/${selectedImages.length} complete: ${fileName}</p>`);
+
                 return {
-                    fileName: filename,
+                    fileName,
                     fileSha: resBody.sha
                 }
             }));

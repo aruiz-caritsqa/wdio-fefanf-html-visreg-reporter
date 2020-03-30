@@ -9,6 +9,7 @@ const momentDurationFormatSetup = require("moment-duration-format");
 momentDurationFormatSetup(moment);
 const logger = require('log4js');
 const log4js = require('@log4js-node/log4js-api');
+const { execSync } = require('child_process');
 
 class VisRegHtmlReporter extends WDIOReporter {
     constructor(opts) {
@@ -46,26 +47,8 @@ class VisRegHtmlReporter extends WDIOReporter {
         this.openInProgress = false;
         this.defaultTestIndent = '   ' ;
 
-        // process.on('test:innerStepPass', (message) => {
-        //     console.log(`\n>>> test:innerStepPass :: ${JSON.stringify(message)}\n`);
-        //     const test = this.getTest(this.testUid);
-        //     this.moveErrorsToEvents(test) ;
-        //     test.events.push({type: 'innerStepPass', value: message});
-        // })
+        this.gitRemote = this.getBranchName();
 
-        // process.on('test:innerStepFail', (message) => {
-        //     console.log(`\n>>> test:innerStepFail :: ${JSON.stringify(message)}\n`);
-        //     const test = this.getTest(this.testUid);
-        //     this.moveErrorsToEvents(test) ;
-        //     test.events.push({type: 'innerStepFail', value: message});
-        // })        
-
-        // process.on('test:screenshot', (filepath) => {
-        //     let test = this.getTest(this.testUid) ;
-        //     this.moveErrorsToEvents(test) ;
-        //     test.events.push({type: 'screenshot', value: filepath}) ;
-        // });
-    
         // process.on('test:log', (message) => {
         //     const test = this.getTest(this.testUid);
         //     this.moveErrorsToEvents(test) ;
@@ -92,12 +75,18 @@ class VisRegHtmlReporter extends WDIOReporter {
             this.moveErrorsToEvents(test) ;
             test.events.push({type: 'imgCompareNew', value: { actual: images.actual, baseline: images.baseline }}) ;
         });
-
-
     }
 
     get isSynchronised () {
         return !this.openInProgress ;
+    }
+
+    getBranchName () {
+        const res = execSync('git remote -v').toString('utf8').match(/github\.com.(.*?)\.git/);
+        if (res) {
+            return res[1];
+        }
+        return "nothing";
     }
 
     onRunnerStart(runner) {
@@ -159,26 +148,6 @@ class VisRegHtmlReporter extends WDIOReporter {
         this.indents--;
     }
 
-    // isScreenshotCommand(command) {
-    //     const isScreenshotEndpoint = /\/session\/[^/]*\/screenshot/
-    //     return isScreenshotEndpoint.test(command.endpoint)
-    // }
-
-    // //this is a hack to get around lack of onScreenshot event
-    // onAfterCommand(command) {
-    //     if (this.options.useOnAfterCommandForScreenshot) {
-    //         if (this.isScreenshotCommand(command) && command.result.value) {
-
-    //             const timestamp = moment().format('YYYYMMDD-HHmmss.SSS');
-    //             const filepath = path.join(this.options.outputDir, '/screenshots/', this.cid, timestamp, this.options.filename + '.png');
-    //             this.log("onAfterCommand: taking screenshot " + filepath);
-    //             fs.outputFileSync(filepath, Buffer.from(command.result.value, 'base64'));
-
-    //             let test = this.getTest(this.testUid);
-    //             test.events.push({type: 'screenshot', value: filepath});
-    //         }
-    //     }
-    // }
 
     log(message,object) {
         if (this.options.LOG || this.options.debug ) {
@@ -255,7 +224,8 @@ class VisRegHtmlReporter extends WDIOReporter {
                 info: runner,
                 metrics: self.metrics,
                 suites: self.getOrderedSuites(),
-                title: self.options.reportTitle
+                title: self.options.reportTitle,
+                gitRemote: self.gitRemote,
             },
             showInBrowser : self.options.showInBrowser,
             outputDir : self.options.outputDir,
