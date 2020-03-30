@@ -352,13 +352,19 @@
                 <td>
                     <table class="">
                         <tr>
-                            <td width="100px"><span>Github Token</span></td><td><input type="text" size="80" id="github-token" value="" /></td>
+                            <td width="100px" style="vertical-align: top;"><span>Github Repo</span></td><td><input type="text" size="80" id="github-repo" value="{{gitRemote}}" /></td>
                         </tr>
                         <tr>
-                            <td width="100px"><span>Github Repo</span></td><td><input type="text" size="80" id="github-repo" value="{{gitRemote}}" /></td>
+                            <td width="100px" style="vertical-align: top;"><span>Github Branch</span></td><td><input type="text" size="80" id="github-branch" value="master" /></td>
                         </tr>
                         <tr>
-                            <td width="100px"><span>Github Branch</span></td><td><input type="text" size="80" id="github-branch" value="master" /></td>
+                            <td width="100px" style="vertical-align: top;">
+                                <span>Github Token</span></td><td><input type="text" size="80" id="github-token" value="" />
+                                <br/>
+                                <span>To create a token, you need a Github account, then go <a href="https://github.com/settings/tokens">here</a> and follow <a href="https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line"> these instructions</a>. Store the token in a safe place to re-use it.</span>
+                                <br/>
+                                <br/>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="button" id="updateImagesInGithub" value="Update selected images" /></td>
@@ -379,7 +385,7 @@
                     <table class="table table-bordered">
                         <tr>
                             <td colspan="2">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     {{#if specs }}
                                     {{#each specs as | spec|}}
                                     <tr>
@@ -395,7 +401,7 @@
                                         {{/if}}
                                         {{#each suites as |suite| }}
                                         {{#isValidSuite suite}}
-                                        <table class="table table-suite {{#suiteStateColour suite.tests}}{{/suiteStateColour}}-table">
+                                        <table class="table table-bordered table-suite {{#suiteStateColour suite.tests}}{{/suiteStateColour}}-table">
                                             <tr class="suite-header">
                                                 <td colspan="2"
                                                     class="{{#suiteStateColour suite.tests}}{{/suiteStateColour}}">
