@@ -61,13 +61,23 @@ class VisRegReportAggregator {
         }
     }
 
-    getBranchName () {
-        const res = execSync('git remote -v').toString('utf8').match(/github\.com.(.*?)\.git/);
+    getBranchName() {
+        let res;
+        
+        if (this.options.gitBranch) {
+            return this.options.gitBranch;
+        }
+
+        try {
+            res = execSync('git remote -v').toString('utf8').match(/github\.com.(.*?)\.git/);
+        } catch(e) {
+            return "";
+        }
+    
         if (res) {
             return res[1];
         }
-        return "nothing";
-    }
+      }
 
     async createReport(results) {
 
