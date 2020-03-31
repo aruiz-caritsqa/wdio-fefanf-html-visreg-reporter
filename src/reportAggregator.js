@@ -33,7 +33,7 @@ class VisRegReportAggregator {
         opts = Object.assign({}, {
             outputDir: 'reports/visreg-reports/',
             filename: 'master-report.html',
-            reportTitle: 'Test Master Report',
+            reportTitle: 'Visual Regression Test Master Report',
             showInBrowser: false,
             templateFilename: path.resolve(__dirname, '../src/wdio-fefanf-html-visreg-reporter-template.hbs'),
             templateFuncs: {},
@@ -64,8 +64,8 @@ class VisRegReportAggregator {
     getBranchName() {
         let res;
         
-        if (this.options.gitBranch) {
-            return this.options.gitBranch;
+        if (this.options.gitRepo) {
+            return this.options.gitRepo;
         }
 
         try {
