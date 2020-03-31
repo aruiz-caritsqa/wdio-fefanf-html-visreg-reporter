@@ -19,7 +19,7 @@ class VisRegHtmlReporter extends WDIOReporter {
             filename: 'report.html',
             templateFilename: path.resolve(__dirname, '../src/wdio-fefanf-html-visreg-reporter-template.hbs'),
             templateFuncs: {},
-            reportTitle: 'Test Report Title',
+            reportTitle: 'Test Report',
             showInBrowser: false,
             // useOnAfterCommandForScreenshot: true,
             LOG : null
@@ -84,8 +84,8 @@ class VisRegHtmlReporter extends WDIOReporter {
     getBranchName() {
         let res;
         
-        if (this.options.gitBranch) {
-            return this.options.gitBranch;
+        if (this.options.gitRepo) {
+            return this.options.gitRepo;
         }
 
         try {

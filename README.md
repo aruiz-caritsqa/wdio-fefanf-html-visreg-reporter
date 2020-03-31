@@ -43,7 +43,7 @@ module.exports = {
             filename: 'report.html',
             reportTitle: 'Visual Regression Test Report Title',
             // to override the git repo & branch
-            gitBranch: '<owner>/<repo>', 
+            gitRepo: '<owner>/<repo>', 
             // to show the report in a browser when done
             showInBrowser: true,
 

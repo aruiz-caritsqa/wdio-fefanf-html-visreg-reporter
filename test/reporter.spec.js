@@ -32,6 +32,7 @@ let reportAggregator = new VisRegReportAggregator({
     showInBrowser: true,
     LOG : logger
 });
+
 reportAggregator.clean();
 
 let htmlReporter  = new VisRegHtmlReporter({
